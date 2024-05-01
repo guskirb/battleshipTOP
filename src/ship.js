@@ -2,11 +2,10 @@ class Ship {
     constructor(length) {
         this.length = length;
         this.hits = 0;
-        this.sunk = false;
     }
 
     hit() {
-        if (this.isSunk()){
+        if (this.isSunk()) {
             return 'Error';
         }
         this.hits += 1;

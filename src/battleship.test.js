@@ -7,9 +7,12 @@ class Ship {
 
     hit() {
         this.hits += 1;
+        if (this.hits === this.length) {
+            this.sunk = true;
+        }
     }
 }
-  
+
 const newShip = new Ship(2);
 
 it('returns ship object', () => {
@@ -18,6 +21,10 @@ it('returns ship object', () => {
 
 it('increases hit count', () => {
     expect(newShip.hit()).toBeUndefined;
-    expect
+    expect(newShip).toEqual({ "hits": 1, "length": 2, "sunk": false });
+    expect(newShip.hit()).toBeUndefined;
+    expect(newShip).toEqual({ "hits": 2, "length": 2, "sunk": true });
 })
+
+
 

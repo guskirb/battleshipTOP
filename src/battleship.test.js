@@ -80,13 +80,27 @@ class Board {
                 }
             })
         }
-         return ship;
+        return ship;
+    }
+}
+
+class Player {
+    constructor(name) {
+        this.name = name;
+        this.board;
+    }
+
+    assignBoard() {
+        const board = new Board;
+        board.createBoard()
+        this.board = board;
     }
 }
 
 
 const newShip = new Ship(2);
 const newBoard = new Board;
+const newPlayer = new Player('Gus');
 
 it('returns ship object', () => {
     expect(newShip).toEqual({ "hits": 0, "length": 2 });
@@ -137,8 +151,13 @@ it('receive an attack', () => {
     expect(newBoard.board);
 })
 
-it('receive an attack', () => {
+it('check if ships remain', () => {
     expect(newBoard.checkShip()).toBeFalsy();
+})
+
+it('assign board to player', () => {
+    expect(newPlayer.assignBoard());
+    expect(newPlayer.board);
 })
 
 

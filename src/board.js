@@ -60,4 +60,4 @@ const NewBoard = class Board {
     }
 }
 
-module.exports = NewBoard;
+export default NewBoard;

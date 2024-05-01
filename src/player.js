@@ -1,5 +1,5 @@
-const Board = require('./board');
-const Ship = require('./ship');
+import Board from './board.js';
+import Ship from './ship.js';
 
 const NewPlayer = class Player {
     constructor(name) {
@@ -16,4 +16,4 @@ const NewPlayer = class Player {
     }
 }
 
-module.exports = NewPlayer;
+export default NewPlayer;

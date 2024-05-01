@@ -20,4 +20,4 @@ const NewShip = class Ship {
     }
 }
 
-module.exports = NewShip
+export default NewShip

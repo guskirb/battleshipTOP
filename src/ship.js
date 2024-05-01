@@ -6,12 +6,17 @@ class Ship {
     }
 
     hit() {
-        if (this.sunk){
+        if (this.isSunk()){
             return 'Error';
         }
         this.hits += 1;
+        return this.hits;
+    }
+
+    isSunk() {
         if (this.hits === this.length) {
-            this.sunk = true;
+            return true;
         }
+        return false;
     }
 }

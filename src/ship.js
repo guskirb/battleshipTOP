@@ -1,4 +1,4 @@
-class Ship {
+const NewShip = class Ship {
     constructor(length) {
         this.length = length;
         this.hits = 0;
@@ -19,3 +19,5 @@ class Ship {
         return false;
     }
 }
+
+module.exports = NewShip

@@ -1,6 +1,5 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const historyApiFallback = require('connect-history-api-fallback')
 
 module.exports = {
     mode: 'development',
@@ -53,7 +52,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Webpack Template',
+            title: 'Battleships',
             filename: 'index.html',
             template: 'src/template.html',
         }),

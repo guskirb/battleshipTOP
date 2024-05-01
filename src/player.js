@@ -1,4 +1,4 @@
-class Player {
+const NewPlayer = class Player {
     constructor(name) {
         this.name = name;
     }
@@ -9,3 +9,5 @@ class Player {
         this.board = board;
     }
 }
+
+module.exports = NewPlayer;

@@ -1,4 +1,4 @@
-class Board {
+const NewBoard = class Board {
     constructor() {
         this.board = [];
     }
@@ -59,3 +59,5 @@ class Board {
         return ship;
     }
 }
+
+module.exports = NewBoard;

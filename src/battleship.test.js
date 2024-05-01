@@ -37,22 +37,35 @@ class Board {
     }
 
     place(ship, position) {
-        const {length} = ship;
-        if ((length + position[1]) >= 10){
+        const { length } = ship;
+        const row = this.board[position[0]]
+        if ((length + row[position[1]]) >= 10) {
             return false;
         }
 
         for (let x = 0; x < length; x += 1) {
-            const row = this.board[position[0]];
-           if(row[position[1] + x] !== 'o'){
-            return false;
-           } 
+            if (row[position[1] + x] !== 'o') {
+                return false;
+            }
         }
 
         for (let x = 0; x < length; x += 1) {
-            const row = this.board[position[0]];
             row[position[1] + x] = ship;
         }
+        return true;
+    }
+
+    receiveAttack(position) {
+        const row = this.board[position[0]];
+
+        if (row[position[1]] === 'x') {
+            return false;
+        } if (row[position[1]] === 'o'){
+            row[position[1]] = 'x';
+            return false;
+        }
+        row[position[1]].hit();
+        console.log(`${row[position[1]]} was hit!`);
         return true;
     }
 }
@@ -85,20 +98,24 @@ it('creates gameboard', () => {
 })
 
 it('place ship', () => {
-    expect(newBoard.place(newShip, [1, 1])).toBeTruthy;
+    expect(newBoard.place(newShip, [1, 1])).toBeTruthy();
     expect(newBoard.board);
 })
 
 it('place ship off board', () => {
-    expect(newBoard.place(newShip, [1, 9])).toBeFalsy;
+    expect(newBoard.place(newShip, [1, 9])).toBeFalsy();
     expect(newBoard.board);
 })
 
 it('place ship in occupied space', () => {
-    expect(newBoard.place(newShip, [1, 2])).toBeFalsy;
+    expect(newBoard.place(newShip, [1, 2])).toBeFalsy();
     expect(newBoard.board);
 })
 
+it('receive an attack', () => {
+    expect(newBoard.receiveAttack([1, 2])).toBeTruthy();
+    expect(newBoard.board);
+})
 
 
 

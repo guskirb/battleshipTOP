@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 class Ship {
     constructor(length) {
         this.length = length;
@@ -5,7 +6,7 @@ class Ship {
     }
 
     hit() {
-        if (this.isSunk()){
+        if (this.isSunk()) {
             return 'Error';
         }
         this.hits += 1;
@@ -20,15 +21,40 @@ class Ship {
     }
 }
 
+class Board {
+    constructor() {
+        this.board = [];
+    }
+
+    createBoard() {
+        for (let x = 0; x < 10; x += 1) {
+            this.board[x] = [];
+            for (let y = 0; y < 10; y += 1) {
+                this.board[x].push('o');
+            }
+        }
+        return this.board
+    }
+
+    place(ship, position) {
+        const {length} = ship;
+        for (let x = 0; x < length; x += 1) {
+            const row = this.board[position[0]];
+            row[position[1] + x] = ship;
+        }
+    }
+}
+
 const newShip = new Ship(2);
+const newBoard = new Board;
 
 it('returns ship object', () => {
-    expect(newShip).toEqual({ "hits": 0, "length": 2});
+    expect(newShip).toEqual({ "hits": 0, "length": 2 });
 })
 
 it('increases hit count', () => {
     expect(newShip.hit()).toBe(1);
-    expect(newShip).toEqual({ "hits": 1, "length": 2});
+    expect(newShip).toEqual({ "hits": 1, "length": 2 });
 })
 
 it('ship is sunk', () => {
@@ -38,7 +64,17 @@ it('ship is sunk', () => {
 
 it('hit a sunken ship returns error', () => {
     expect(newShip.hit()).toBe('Error');
-    expect(newShip).toEqual({ "hits": 2, "length": 2});
+    expect(newShip).toEqual({ "hits": 2, "length": 2 });
+})
+
+it('creates gameboard', () => {
+    expect(newBoard.createBoard());
+    expect(newBoard.board);
+})
+
+it('creates gameboard', () => {
+    expect(newBoard.place(newShip, [1, 1]));
+    expect(newBoard.board);
 })
 
 

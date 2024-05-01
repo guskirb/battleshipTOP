@@ -1,0 +1,26 @@
+*{
+   border: solid 1px red; 
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.gameArea {
+    display: flex;
+    gap: 100px;
+}
+
+.playerBoard,
+.enemyBoard {
+    height: 400px;
+    width: 400px;
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+}

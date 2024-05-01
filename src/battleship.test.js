@@ -38,10 +38,22 @@ class Board {
 
     place(ship, position) {
         const {length} = ship;
+        if ((length + position[1]) >= 10){
+            return false;
+        }
+
+        for (let x = 0; x < length; x += 1) {
+            const row = this.board[position[0]];
+           if(row[position[1] + x] !== 'o'){
+            return false;
+           } 
+        }
+
         for (let x = 0; x < length; x += 1) {
             const row = this.board[position[0]];
             row[position[1] + x] = ship;
         }
+        return true;
     }
 }
 
@@ -72,8 +84,18 @@ it('creates gameboard', () => {
     expect(newBoard.board);
 })
 
-it('creates gameboard', () => {
-    expect(newBoard.place(newShip, [1, 1]));
+it('place ship', () => {
+    expect(newBoard.place(newShip, [1, 1])).toBeTruthy;
+    expect(newBoard.board);
+})
+
+it('place ship off board', () => {
+    expect(newBoard.place(newShip, [1, 9])).toBeFalsy;
+    expect(newBoard.board);
+})
+
+it('place ship in occupied space', () => {
+    expect(newBoard.place(newShip, [1, 2])).toBeFalsy;
     expect(newBoard.board);
 })
 

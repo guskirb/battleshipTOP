@@ -9,6 +9,7 @@ class Ship {
             return 'Error';
         }
         this.hits += 1;
+        return this.hits;
     }
 
     isSunk() {
@@ -26,12 +27,12 @@ it('returns ship object', () => {
 })
 
 it('increases hit count', () => {
-    expect(newShip.hit()).toBeUndefined;
+    expect(newShip.hit()).toBe(1);
     expect(newShip).toEqual({ "hits": 1, "length": 2});
 })
 
 it('ship is sunk', () => {
-    expect(newShip.hit()).toBeUndefined;
+    expect(newShip.hit()).toBe(2);
     expect(newShip.isSunk()).toBeTruthy;
 })
 

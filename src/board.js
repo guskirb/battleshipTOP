@@ -35,10 +35,10 @@ const NewBoard = class Board {
     receiveAttack(position) {
         const row = this.board[position[0]];
 
-        if (row[position[1]] === 'x') {
+        if ((row[position[1]] === 'x') || (row[position[1]] === '-')) {
             return false;
         } if (row[position[1]] === 'o') {
-            row[position[1]] = 'x';
+            row[position[1]] = '-';
             return false;
         }
         row[position[1]].hit();

@@ -14,7 +14,7 @@ const NewBoard = class Board {
     }
 
     place(ship, position) {
-        const { length } = ship;
+        const length = ship.length;
         const row = this.board[position[0]];
 
         if ((length + row[position[1]]) >= 10) {

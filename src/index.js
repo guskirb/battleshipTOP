@@ -68,7 +68,7 @@ class Render {
                     ship[0].classList.add('ship');
                 }
                 if (player.board.board[x][y] === '-') {
-                    const ship = document.getElementsByClassName(`player [${x},${y}]`);
+                    const ship = document.getElementsByClassName(`player ${x},${y}]`);
                     ship[0].classList.add('miss');
                 }
                 if (player.board.board[x][y] === 'x') {
@@ -150,6 +150,16 @@ class Render {
         player.board.place(player.patrolboat, x);
     }
 
+    placeBoat(){
+        let array = Array.from(currentDiv);
+        let player = Player1[currentShip];
+
+        if (currentShip){
+            Player1.board.place(player, [parseInt(array[1]),parseInt(array[3])]);
+            render.renderPlayer(Player1);
+        }
+    }
+
     setShip(state) {
         carrier.style.display = state;
         battleship.style.display = state;
@@ -202,12 +212,7 @@ playButton.addEventListener('click', () => {
 })
 
 let currentShip;
-
-carrier.addEventListener('mousedown', mouseDown);
-battleship.addEventListener('mousedown', mouseDown);
-destroyer.addEventListener('mousedown', mouseDown);
-submarine.addEventListener('mousedown', mouseDown);
-patrolboat.addEventListener('mousedown', mouseDown);
+let currentDiv;
 
 function mouseDown(e) {
     currentShip = e.target.className;
@@ -221,16 +226,26 @@ function mouseDown(e) {
 function mouseMove(e) {
     newX = startX - e.clientX;
     newY = startY - e.clientY;
-
+    
     startX = e.clientX;
     startY = e.clientY;
-
-   document.querySelector(`.${currentShip}`).style.top = (startY - 10) + 'px';
-   document.querySelector(`.${currentShip}`).style.left = (startX - 10) + 'px';
+    
+    document.querySelector(`.${currentShip}`).style.top = (startY - 10) + 'px';
+    document.querySelector(`.${currentShip}`).style.left = (startX - 10) + 'px';
 }
 
 function mouseUp(e) {
     document.querySelector(`.${currentShip}`).style.top = `var(--${currentShip}-coord)`;
     document.querySelector(`.${currentShip}`).style.left = 'var(--left-coord)';
-    document.removeEventListener('mousemove', mouseMove)
+    document.removeEventListener('mousemove', mouseMove);
+    document.removeEventListener('mouseup', mouseUp);
+    currentDiv = document.elementFromPoint(e.clientX, e.clientY).classList[1];
+    render.placeBoat();
+    currentShip = undefined;
 }
+
+carrier.addEventListener('mousedown', mouseDown);
+battleship.addEventListener('mousedown', mouseDown);
+destroyer.addEventListener('mousedown', mouseDown);
+submarine.addEventListener('mousedown', mouseDown);
+patrolboat.addEventListener('mousedown', mouseDown);

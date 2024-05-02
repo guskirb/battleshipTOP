@@ -13,9 +13,11 @@ let Player2;
 button.addEventListener('click', () => {
     Player1 = new Player(nameInput.value);
     Player1.initialize();
+    playerName.textContent = Player1.name.toUpperCase();
 
     Player2 = new Player('CPU');
     Player2.initialize();
+    enemyName.textContent = Player2.name.toUpperCase();
 
     startScreen.style.display = 'none';
     

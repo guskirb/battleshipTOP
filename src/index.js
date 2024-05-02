@@ -203,11 +203,14 @@ playButton.addEventListener('click', () => {
 
 let currentShip;
 
-carrier.addEventListener('mousedown', mouseDown)
+carrier.addEventListener('mousedown', mouseDown);
+battleship.addEventListener('mousedown', mouseDown);
+destroyer.addEventListener('mousedown', mouseDown);
+submarine.addEventListener('mousedown', mouseDown);
+patrolboat.addEventListener('mousedown', mouseDown);
 
 function mouseDown(e) {
-    console.log(Player1)
-    currentShip = Player1.carrier;
+    currentShip = e.target.className;
     startX = e.clientX;
     startY = e.clientY;
 
@@ -222,12 +225,12 @@ function mouseMove(e) {
     startX = e.clientX;
     startY = e.clientY;
 
-    carrier.style.top = (startY - 10) + 'px';
-    carrier.style.left = (startX - 10) + 'px';
+   document.querySelector(`.${currentShip}`).style.top = (startY - 10) + 'px';
+   document.querySelector(`.${currentShip}`).style.left = (startX - 10) + 'px';
 }
 
 function mouseUp(e) {
-    carrier.style.top = '32%';
-    carrier.style.left = 'var(--left-coord)';
+    document.querySelector(`.${currentShip}`).style.top = `var(--${currentShip}-coord)`;
+    document.querySelector(`.${currentShip}`).style.left = 'var(--left-coord)';
     document.removeEventListener('mousemove', mouseMove)
 }

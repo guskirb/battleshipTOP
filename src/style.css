@@ -2,9 +2,14 @@
   /* border: solid 1px red; */
 }
 
-:root{
+:root {
   --boxsize: 40px;
-  --left-coord: max(800px,59.5%);
+  --left-coord: clamp(59.5%, 67.5%);
+  --carrier-coord: 32%;
+  --battleship-coord: 38%;
+  --destroyer-coord: 44%;
+  --submarine-coord: 50%;
+  --patrolboat-coord: 56%;
 }
 
 body {
@@ -90,12 +95,13 @@ h2 {
   gap: 40px;
 }
 
-.battleships{
+.battleships {
   display: flex;
   flex-flow: column;
   align-items: flex-start;
   gap: 20px;
   margin-top: 60px;
+  /* position: relative; */
 }
 
 .buttons {
@@ -114,8 +120,8 @@ h2 {
   grid-template-columns: repeat(5, var(--boxsize));
   border: solid 1px red;
   height: var(--boxsize);
-  position: absolute;
-  top: 32%;
+  position: fixed;
+  top: var(--carrier-coord);
   left: var(--left-coord);
 }
 
@@ -125,17 +131,17 @@ h2 {
   border: solid 1px red;
   height: var(--boxsize);
   position: absolute;
-  top: 38%;
+  top: var(--battleship-coord);
   left: var(--left-coord);
 }
 
-.destroyer{
+.destroyer {
   display: none;
   grid-template-columns: repeat(3, var(--boxsize));
   border: solid 1px red;
   height: var(--boxsize);
   position: absolute;
-  top: 44%;
+  top: var(--destroyer-coord);
   left: var(--left-coord);
 }
 
@@ -145,7 +151,7 @@ h2 {
   border: solid 1px red;
   height: var(--boxsize);
   position: absolute;
-  top: 50%;
+  top: var(--submarine-coord);
   left: var(--left-coord);
 }
 
@@ -155,12 +161,8 @@ h2 {
   border: solid 1px red;
   height: var(--boxsize);
   position: absolute;
-  top: 56%;
+  top: var(--patrolboat-coord);
   left: var(--left-coord);
-}
-
-.enemyBoard {
-  transition: 2ms linear;
 }
 
 .ship {

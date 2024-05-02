@@ -9,6 +9,7 @@ const NewPlayer = class Player {
     initialize() {
         this.board = new Board;
         this.board.createBoard();
+        this.carrier = new Ship(5);
         this.battleship = new Ship(4);
         this.destroyer = new Ship(3);
         this.submarine = new Ship(3);

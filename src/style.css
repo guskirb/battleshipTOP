@@ -2,6 +2,10 @@
   /* border: solid 1px red; */
 }
 
+:root{
+  --boxsize: 38px;
+}
+
 body {
   height: 100vh;
   margin: 0;
@@ -37,13 +41,14 @@ body {
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
 }
 
 .errorText {
   color: red;
-  margin-top: -10px;
   display: none;
+  position: fixed;
+  top: 54.5%;
 }
 
 .cpuDifficulty {
@@ -58,7 +63,7 @@ body {
   gap: 80px;
 }
 
-.gameArea > div > h2 {
+h2 {
   text-align: center;
   margin: 0;
 }
@@ -76,6 +81,59 @@ body {
 .playerBoard > div,
 .enemyBoard > div {
   border: solid 1px red;
+}
+
+.playerSide {
+  display: flex;
+  gap: 40px;
+}
+
+.battleships{
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.buttons {
+  margin-top: auto;
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+.buttons > button {
+  height: 30px;
+}
+
+.carrier {
+  display: grid;
+  grid-template-columns: repeat(5, var(--boxsize));
+  border: solid 1px red;
+  height: var(--boxsize);
+}
+
+.battleship {
+  display: grid;
+  grid-template-columns: repeat(4, var(--boxsize));
+  border: solid 1px red;
+  height: var(--boxsize);
+}
+
+.destroyer, 
+.submarine {
+  display: grid;
+  grid-template-columns: repeat(3, var(--boxsize));
+  border: solid 1px red;
+  height: var(--boxsize);
+}
+
+.patrolboat {
+  display: grid;
+  grid-template-columns: repeat(2, var(--boxsize));
+  border: solid 1px red;
+  height: var(--boxsize);
 }
 
 .enemyBoard {

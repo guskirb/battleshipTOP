@@ -6,11 +6,16 @@ const nameInput = document.querySelector('#name');
 const startScreen = document.querySelector('.startScreen');
 const playerName = document.querySelector('.playerName');
 const enemyName = document.querySelector('.enemyName');
+const errorText = document.querySelector('.errorText')
 
 let Player1;
 let Player2;
 
 button.addEventListener('click', () => {
+    if (!nameInput.value){
+        errorText.style.display= 'inline';
+       return; 
+    }
     Player1 = new Player(nameInput.value);
     Player1.initialize();
     playerName.textContent = Player1.name.toUpperCase();

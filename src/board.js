@@ -15,7 +15,8 @@ const NewBoard = class Board {
 
     place(ship, position) {
         const { length } = ship;
-        const row = this.board[position[0]]
+        const row = this.board[position[0]];
+
         if ((length + row[position[1]]) >= 10) {
             return false;
         }
@@ -39,11 +40,13 @@ const NewBoard = class Board {
             return false;
         } if (row[position[1]] === 'o') {
             row[position[1]] = '-';
-            return false;
+            return true;
         }
         row[position[1]].hit();
+        if (row[position[1]].isSunk()) {
+            console.log('Ship sunk!');
+        }
         row[position[1]] = 'x';
-        this.checkShip();
         return true;
     }
 
@@ -51,7 +54,7 @@ const NewBoard = class Board {
         let ship = false;
         for (let x = 0; x < 10; x += 1) {
             this.board[x].forEach(element => {
-                if (!(element === 'x' || element === 'o')) {
+                if (!(element === 'x' || element === 'o' || element === '-')) {
                     ship = true;
                 }
             })

@@ -40,6 +40,12 @@ body {
   gap: 15px;
 }
 
+.errorText {
+  color: red;
+  margin-top: -10px;
+  display: none;
+}
+
 .cpuDifficulty {
   display: flex;
   flex-flow: column;

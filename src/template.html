@@ -10,9 +10,32 @@
 </head>
 
 <body>
+    <div class="startScreen">
+        <h1>Battleships</h1>
+        <div>
+            <div class="nameInput">
+                <label for="name">Name</label>
+                <input type="text" id="name">
+            </div>
+            <div class="cpuDifficulty">
+                <h2>CPU Difficulty</h2>
+                <label for="Easy">Easy
+                    <input type="radio" name="Difficulty" id="Easy" checked></label>
+                <label for="Hard">Hard
+                    <input type="radio" name="Difficulty" id="Hard"></label>
+            </div>
+        </div>
+        <button class="submit">Submit</button>
+    </div>
     <div class="gameArea">
-        <div class="playerBoard"></div>
-        <div class="enemyBoard"></div>
+        <div>
+            <h2 class="playerName"></h2>
+            <div class="playerBoard"></div>
+        </div>
+        <div>
+            <h2 class="enemyName"></h2>
+            <div class="enemyBoard"></div>
+        </div>
     </div>
 </body>
 

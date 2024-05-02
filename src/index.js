@@ -1,10 +1,32 @@
 import './style.css';
 import Player from './player.js';
 
-const Player1 = new Player('Player1');
-Player1.initialize();
-const Player2 = new Player('Player2');
-Player2.initialize();
+const button = document.querySelector('.submit');
+const nameInput = document.querySelector('#name');
+const startScreen = document.querySelector('.startScreen');
+const playerName = document.querySelector('.playerName');
+const enemyName = document.querySelector('.enemyName');
+
+let Player1;
+let Player2;
+
+button.addEventListener('click', () => {
+    Player1 = new Player(nameInput.value);
+    Player1.initialize();
+
+    Player2 = new Player('CPU');
+    Player2.initialize();
+
+    startScreen.style.display = 'none';
+    
+    render.randomPlace(Player1);
+    render.randomPlace(Player2);
+    render.renderBoards();
+    render.renderPlayer(Player1);
+    render.renderEnemy(Player2);
+    console.log(Player1);
+
+})
 
 class Render {
     renderBoards() {
@@ -118,19 +140,4 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-// Player1.board.place(Player1.carrier, [0, 1]);
-// Player1.board.place(Player1.battleship, [1, 6]);
-// Player1.board.place(Player1.destroyer, [5, 6]);
-// Player1.board.place(Player1.submarine, [9, 0]);
-// Player1.board.place(Player1.patrolboat, [2, 0]);
-Player2.board.place(Player2.carrier, [0, 1]);
-Player2.board.place(Player2.battleship, [1, 6]);
-Player2.board.place(Player2.destroyer, [5, 6]);
-Player2.board.place(Player2.submarine, [9, 0]);
-Player2.board.place(Player2.patrolboat, [2, 0]);
-console.log(Player1);
 const render = new Render;
-render.randomPlace(Player1);
-render.renderBoards();
-render.renderPlayer(Player1);
-render.renderEnemy(Player2);

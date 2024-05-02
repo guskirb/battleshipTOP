@@ -1,6 +1,11 @@
 import './style.css';
 import Player from './player.js';
 
+let newX = 0;
+let newY = 0;
+let startX = 0;
+let startY = 0;
+
 const button = document.querySelector('.submit');
 const nameInput = document.querySelector('#name');
 const startScreen = document.querySelector('.startScreen');
@@ -11,33 +16,38 @@ const enemySide = document.querySelector('.enemy');
 const randomButton = document.querySelector('.randomButton');
 const playButton = document.querySelector('.playButton');
 const battleshipArea = document.querySelector('.battleships');
+const carrier = document.querySelector('.carrier');
+const battleship = document.querySelector('.battleship');
+const destroyer = document.querySelector('.destroyer');
+const submarine = document.querySelector('.submarine');
+const patrolboat = document.querySelector('.patrolboat');
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
 class Render {
-    createPlayerBoard(){
+    createPlayerBoard() {
         const playerBoard = document.querySelector('.playerBoard');
 
         for (let x = 0; x < 10; x += 1) {
             for (let y = 0; y < 10; y += 1) {
                 let playerDiv = document.createElement('div');
-                
+
                 playerBoard.appendChild(playerDiv).classList.add('player', `[${x},${y}]`);
             }
         }
     }
 
-    createEnemyBoard(){
+    createEnemyBoard() {
         const enemyBoard = document.querySelector('.enemyBoard');
-        
+
         for (let x = 0; x < 10; x += 1) {
-            for (let y = 0; y < 10; y += 1) {  
+            for (let y = 0; y < 10; y += 1) {
                 let enemyDiv = document.createElement('div');
-                
+
                 enemyBoard.appendChild(enemyDiv).classList.add('enemy', `[${x},${y}]`);
-                
+
                 enemyDiv = document.getElementsByClassName(`enemy [${x},${y}]`);
                 enemyDiv[0].addEventListener('click', () => {
                     if (Player2.board.receiveAttack([x, y])) {
@@ -49,7 +59,7 @@ class Render {
             }
         }
     }
-    
+
     renderPlayer(player) {
         for (let x = 0; x < 10; x += 1) {
             for (let y = 0; y < 10; y += 1) {
@@ -89,55 +99,63 @@ class Render {
             console.log('WIN');
         }
     }
-    
+
     clearBoard() {
         const playerBoard = document.querySelector('.playerBoard');
-        
+
         while (playerBoard.firstChild) {
             playerBoard.removeChild(playerBoard.firstChild);
         }
     }
-    
+
     enemyTurn() {
         let x = getRandomInt(10);
         let y = getRandomInt(10);
-        
+
         while (!Player1.board.receiveAttack([x, y])) {
             x = getRandomInt(10);
             y = getRandomInt(10);
         }
-        
+
         Player1.board.receiveAttack([x, y]);
         this.renderPlayer(Player1);
     }
-    
+
     randomPlace(player) {
         let x = [getRandomInt(10), getRandomInt(10)];
-        
+
         while (!player.board.place(player.carrier, x)) {
             x = [getRandomInt(10), getRandomInt(10)];
         }
         player.board.place(player.carrier, x);
-        
+
         while (!player.board.place(player.battleship, x)) {
             x = [getRandomInt(10), getRandomInt(10)];
         }
         player.board.place(player.battleship, x);
-        
+
         while (!player.board.place(player.destroyer, x)) {
             x = [getRandomInt(10), getRandomInt(10)];
         }
         player.board.place(player.destroyer, x);
-        
+
         while (!player.board.place(player.submarine, x)) {
             x = [getRandomInt(10), getRandomInt(10)];
         }
         player.board.place(player.submarine, x);
-        
+
         while (!player.board.place(player.patrolboat, x)) {
             x = [getRandomInt(10), getRandomInt(10)];
         }
         player.board.place(player.patrolboat, x);
+    }
+
+    setShip(state) {
+        carrier.style.display = state;
+        battleship.style.display = state;
+        destroyer.style.display = state;
+        submarine.style.display = state;
+        patrolboat.style.display = state;
     }
 }
 
@@ -151,11 +169,13 @@ button.addEventListener('click', () => {
         return;
     }
     Player1 = new Player(nameInput.value);
+    Player1.initialize();
     Player2 = new Player('CPU');
 
     startScreen.style.display = 'none';
     enemySide.style.display = 'none';
 
+    render.setShip('grid');
     render.createPlayerBoard();
 })
 
@@ -165,11 +185,12 @@ randomButton.addEventListener('click', () => {
     render.createPlayerBoard();
     render.randomPlace(Player1);
     render.renderPlayer(Player1);
+    render.setShip('none');
 })
 
 playButton.addEventListener('click', () => {
     Player2.initialize();
-    render.createEnemyBoard(); 
+    render.createEnemyBoard();
     render.randomPlace(Player2);
     render.renderEnemy(Player2);
     playerName.textContent = Player1.name.toUpperCase();
@@ -179,3 +200,34 @@ playButton.addEventListener('click', () => {
     battleshipArea.style.display = 'none';
     console.log(Player1.board)
 })
+
+let currentShip;
+
+carrier.addEventListener('mousedown', mouseDown)
+
+function mouseDown(e) {
+    console.log(Player1)
+    currentShip = Player1.carrier;
+    startX = e.clientX;
+    startY = e.clientY;
+
+    document.addEventListener('mousemove', mouseMove)
+    document.addEventListener('mouseup', mouseUp)
+}
+
+function mouseMove(e) {
+    newX = startX - e.clientX;
+    newY = startY - e.clientY;
+
+    startX = e.clientX;
+    startY = e.clientY;
+
+    carrier.style.top = (startY - 10) + 'px';
+    carrier.style.left = (startX - 10) + 'px';
+}
+
+function mouseUp(e) {
+    carrier.style.top = '32%';
+    carrier.style.left = 'var(--left-coord)';
+    document.removeEventListener('mousemove', mouseMove)
+}

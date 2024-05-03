@@ -89,9 +89,6 @@ h2 {
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
   border: solid 1px red;
-  transition:
-  opacity 0.5s,
-  display 0.5s allow-discrete;
 }
 
 .playerBoard > div,
@@ -99,12 +96,47 @@ h2 {
   border: solid 1px red;
 }
 
+.enemyBoard {
+  transition:
+  opacity 0.5s,
+  display 0.5s allow-discrete;
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(500px);
+            transform: translateX(500px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(500px);
+            transform: translateX(500px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
 .playerSide {
   display: flex;
   gap: 40px;
   transition:
   opacity 0.5s,
   display 0.5s allow-discrete;
+  
 }
 
 .battleships {

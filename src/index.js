@@ -19,7 +19,8 @@ const battleship = document.querySelector('.battleship');
 const destroyer = document.querySelector('.destroyer');
 const submarine = document.querySelector('.submarine');
 const patrolboat = document.querySelector('.patrolboat');
-const hitMessage = document.querySelector('.hitMessage');
+const playerHitMessage = document.querySelector('.playerHitMessage');
+const enemyHitMessage = document.querySelector('.enemyHitMessage');
 const resultScreen = document.querySelector('.resultScreen');
 const result = document.querySelector('.result');
 const replayButton = document.querySelector('.replayButton');
@@ -139,7 +140,7 @@ export default class Render {
             Player1.board.receiveAttack([x, y]);
             this.renderPlayer(Player1);
             turn = true;
-        }, 1)
+        }, 1500)
     }
 
     static randomPlace(player) {
@@ -196,16 +197,36 @@ export default class Render {
         let ship;
         if (turn) {
             ship = document.getElementsByClassName(`enemy [${position}]`)[0].getBoundingClientRect();
+            enemyHitMessage.style.top = `${ship.top}px`;
+            enemyHitMessage.style.left = `${ship.left}px`;
+            enemyHitMessage.style.display = 'block';
+            enemyHitMessage.style.opacity = '1';
+            enemyHitMessage.style.animation = '';
+
         } else {
             ship = document.getElementsByClassName(`player [${position}]`)[0].getBoundingClientRect();
+            playerHitMessage.style.top = `${ship.top}px`;
+            playerHitMessage.style.left = `${ship.left}px`;
+            playerHitMessage.style.display = 'block';
+            playerHitMessage.style.opacity = '1';
+            playerHitMessage.style.animation = '';
+
         }
 
-        hitMessage.style.top = `${ship.top}px`;
-        hitMessage.style.left = `${ship.left}px`;
-        hitMessage.style.opacity = '1';
+
 
         setTimeout(() => {
-            hitMessage.style.opacity = '0';
+            enemyHitMessage.style.opacity = '0';
+            enemyHitMessage.style.display = 'block';
+
+            playerHitMessage.style.opacity = '0';
+            playerHitMessage.style.display = 'block';
+
+
+            setTimeout(() => {
+                enemyHitMessage.style.animation = 'none';
+                playerHitMessage.style.animation = 'none';
+            }, 500)
         }, 1000)
     }
 }

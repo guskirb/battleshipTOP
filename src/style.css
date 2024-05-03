@@ -34,9 +34,7 @@ body {
   justify-content: center;
   gap: 50px;
   z-index: 10;
-  transition:
-  opacity 1s,
-  display 1s allow-discrete;
+  transition: opacity 1s, display 1s allow-discrete;
 }
 
 .startScreen > h1 {
@@ -97,46 +95,41 @@ h2 {
 }
 
 .enemyBoard {
-  transition:
-  opacity 0.5s,
-  display 0.5s allow-discrete;
-  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  transition: opacity 0.5s, display 0.5s allow-discrete;
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @-webkit-keyframes slide-in-right {
   0% {
     -webkit-transform: translateX(500px);
-            transform: translateX(500px);
+    transform: translateX(500px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 @keyframes slide-in-right {
   0% {
     -webkit-transform: translateX(500px);
-            transform: translateX(500px);
+    transform: translateX(500px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 
-
 .playerSide {
   display: flex;
   gap: 40px;
-  transition:
-  opacity 0.5s,
-  display 0.5s allow-discrete;
-  
+  transition: opacity 0.5s, display 0.5s allow-discrete;
 }
 
 .battleships {
@@ -223,16 +216,49 @@ h2 {
   transition: all 0.5s linear;
 }
 
-.hitMessage {
+.playerHitMessage,
+.enemyHitMessage {
   top: 0;
   position: fixed;
   opacity: 0;
+  display: none;
   pointer-events: none;
   transition: opacity 0.5s ease-in-out;
+  -webkit-animation: scale-up-right 1.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  animation: scale-up-right 1.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   rotate: 0.95turn;
 }
 
-.resultScreen{
+@-webkit-keyframes scale-up-right {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+  }
+  100% {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+  }
+}
+@keyframes scale-up-right {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+  }
+  100% {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+  }
+}
+
+.resultScreen {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100vh;

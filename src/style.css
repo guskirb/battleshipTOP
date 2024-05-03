@@ -94,6 +94,13 @@ h2 {
   border: solid 1px red;
 }
 
+.enemyName {
+  transition: opacity 0.5s, display 0.5s allow-discrete;
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
 .enemyBoard {
   transition: opacity 0.5s, display 0.5s allow-discrete;
   -webkit-animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)

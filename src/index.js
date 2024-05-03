@@ -22,7 +22,7 @@ const patrolboat = document.querySelector('.patrolboat');
 const hitMessage = document.querySelector('.hitMessage');
 const resultScreen = document.querySelector('.resultScreen');
 const result = document.querySelector('.result');
-const replayButton =document.querySelector('.replayButton');
+const replayButton = document.querySelector('.replayButton');
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -176,8 +176,11 @@ export default class Render {
         const player = Player1[currentShip];
 
         if (currentShip) {
-            Player1.board.place(player, [parseInt(array[1], 10), parseInt(array[3], 10)]);
-            Render.renderPlayer(Player1);
+            if (Player1.board.place(player, [parseInt(array[1], 10), parseInt(array[3], 10)])) {
+                Player1.board.place(player, [parseInt(array[1], 10), parseInt(array[3], 10)]);
+                Render.renderPlayer(Player1);
+                document.querySelector(`.${currentShip}`).style.display = 'none';
+            }
         }
     }
 
@@ -212,9 +215,8 @@ button.addEventListener('click', () => {
         errorText.style.display = 'inline';
         return;
     }
-    
+
     Player1 = new Player(nameInput.value);
-    nameInput.value = "";
     Player1.initialize();
     Player2 = new Player('CPU');
     playerName.textContent = "Place your battleships";
@@ -276,7 +278,6 @@ function mouseUp(e) {
     currentDiv = document.elementFromPoint(e.clientX, e.clientY).classList[1];
     if (currentDiv) {
         Render.placeBoat();
-        document.querySelector(`.${currentShip}`).style.display = 'none';
     }
     currentShip = undefined;
 }

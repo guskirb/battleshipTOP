@@ -20,6 +20,9 @@ const destroyer = document.querySelector('.destroyer');
 const submarine = document.querySelector('.submarine');
 const patrolboat = document.querySelector('.patrolboat');
 const hitMessage = document.querySelector('.hitMessage');
+const resultScreen = document.querySelector('.resultScreen');
+const result = document.querySelector('.result');
+const replayButton =document.querySelector('.replayButton');
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -87,7 +90,8 @@ export default class Render {
             }
         }
         if (!player.board.checkShip()) {
-            console.log('LOSE');
+            resultScreen.style.display = 'flex';
+            result.textContent = 'You Lose!';
         }
     }
 
@@ -105,15 +109,20 @@ export default class Render {
             }
         }
         if (!player.board.checkShip()) {
-            console.log('WIN');
+            resultScreen.style.display = 'flex';
+            result.textContent = 'You Win!';
         }
     }
 
     static clearBoard() {
         const playerBoard = document.querySelector('.playerBoard');
+        const enemyBoard = document.querySelector('.enemyBoard');
 
         while (playerBoard.firstChild) {
             playerBoard.removeChild(playerBoard.firstChild);
+        }
+        while (enemyBoard.firstChild) {
+            enemyBoard.removeChild(enemyBoard.firstChild);
         }
     }
 
@@ -130,7 +139,7 @@ export default class Render {
             Player1.board.receiveAttack([x, y]);
             this.renderPlayer(Player1);
             turn = true;
-        }, 1500)
+        }, 1)
     }
 
     static randomPlace(player) {
@@ -203,9 +212,14 @@ button.addEventListener('click', () => {
         errorText.style.display = 'inline';
         return;
     }
+    
     Player1 = new Player(nameInput.value);
+    nameInput.value = "";
     Player1.initialize();
     Player2 = new Player('CPU');
+    playerName.textContent = "Place your battleships";
+
+    battleshipArea.style.display = 'flex';
 
     startScreen.style.opacity = '0';
     startScreen.style.display = 'none';
@@ -213,6 +227,7 @@ button.addEventListener('click', () => {
     enemySide.style.display = 'none';
     enemySide.style.opacity = '0';
 
+    Render.clearBoard();
     Render.setShip('grid');
     Render.createPlayerBoard();
 })
@@ -239,7 +254,11 @@ playButton.addEventListener('click', () => {
     battleshipArea.style.display = 'none';
 })
 
-
+replayButton.addEventListener('click', () => {
+    resultScreen.style.display = 'none';
+    startScreen.style.display = 'flex';
+    startScreen.style.opacity = '1';
+})
 
 function mouseMove(e) {
     startX = e.clientX;

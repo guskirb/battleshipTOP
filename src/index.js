@@ -26,6 +26,8 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+let turn = true;
+
 class Render {
     createPlayerBoard() {
         const playerBoard = document.querySelector('.playerBoard');
@@ -50,10 +52,14 @@ class Render {
 
                 enemyDiv = document.getElementsByClassName(`enemy [${x},${y}]`);
                 enemyDiv[0].addEventListener('click', () => {
+                    if (!turn){
+                        return;
+                    }
                     if (Player2.board.receiveAttack([x, y])) {
                         Player2.board.receiveAttack([x, y])
                         this.renderEnemy(Player2);
                         this.enemyTurn();
+                        turn = false;
                     }
                 })
             }
@@ -68,7 +74,7 @@ class Render {
                     ship[0].classList.add('ship');
                 }
                 if (player.board.board[x][y] === '-') {
-                    const ship = document.getElementsByClassName(`player ${x},${y}]`);
+                    const ship = document.getElementsByClassName(`player [${x},${y}]`);
                     ship[0].classList.add('miss');
                 }
                 if (player.board.board[x][y] === 'x') {
@@ -118,7 +124,10 @@ class Render {
         }
 
         Player1.board.receiveAttack([x, y]);
-        this.renderPlayer(Player1);
+        setTimeout(() => {
+            this.renderPlayer(Player1);
+            turn = true;
+        }, 1000)   
     }
 
     randomPlace(player) {
@@ -150,12 +159,12 @@ class Render {
         player.board.place(player.patrolboat, x);
     }
 
-    placeBoat(){
+    placeBoat() {
         let array = Array.from(currentDiv);
         let player = Player1[currentShip];
 
-        if (currentShip){
-            Player1.board.place(player, [parseInt(array[1]),parseInt(array[3])]);
+        if (currentShip) {
+            Player1.board.place(player, [parseInt(array[1]), parseInt(array[3])]);
             render.renderPlayer(Player1);
         }
     }
@@ -182,8 +191,11 @@ button.addEventListener('click', () => {
     Player1.initialize();
     Player2 = new Player('CPU');
 
+    startScreen.style.opacity = '0';
     startScreen.style.display = 'none';
+
     enemySide.style.display = 'none';
+    enemySide.style.opacity = '0';
 
     render.setShip('grid');
     render.createPlayerBoard();
@@ -207,8 +219,8 @@ playButton.addEventListener('click', () => {
     enemyName.textContent = Player2.name.toUpperCase();
 
     enemySide.style.display = 'grid';
+    enemySide.style.opacity = '1';
     battleshipArea.style.display = 'none';
-    console.log(Player1.board)
 })
 
 let currentShip;
@@ -226,10 +238,10 @@ function mouseDown(e) {
 function mouseMove(e) {
     newX = startX - e.clientX;
     newY = startY - e.clientY;
-    
+
     startX = e.clientX;
     startY = e.clientY;
-    
+
     document.querySelector(`.${currentShip}`).style.top = (startY - 10) + 'px';
     document.querySelector(`.${currentShip}`).style.left = (startX - 10) + 'px';
 }
@@ -240,7 +252,10 @@ function mouseUp(e) {
     document.removeEventListener('mousemove', mouseMove);
     document.removeEventListener('mouseup', mouseUp);
     currentDiv = document.elementFromPoint(e.clientX, e.clientY).classList[1];
-    render.placeBoat();
+    if (currentDiv) {
+        render.placeBoat();
+        document.querySelector(`.${currentShip}`).style.display = 'none';
+    }
     currentShip = undefined;
 }
 

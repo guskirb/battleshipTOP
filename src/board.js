@@ -1,3 +1,5 @@
+import Render from "./index.js";
+
 const NewBoard = class Board {
     constructor() {
         this.board = [];
@@ -42,10 +44,14 @@ const NewBoard = class Board {
             row[position[1]] = '-';
             return true;
         }
+
         row[position[1]].hit();
+        Render.hitMessage(position);
+
         if (row[position[1]].isSunk()) {
             console.log('Ship sunk!');
-        }
+        } 
+
         row[position[1]] = 'x';
         return true;
     }

@@ -33,6 +33,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 50px;
+  z-index: 10;
 }
 
 .startScreen > h1 {
@@ -169,7 +170,7 @@ h2 {
 
 .ship {
   background-color: black;
-  transition: all 0.1s linear;
+  transition: all 0.25s linear;
 }
 
 .miss {
@@ -180,4 +181,13 @@ h2 {
 .hit {
   background-color: rgb(145, 1, 1);
   transition: all 0.5s linear;
+}
+
+.hitMessage {
+  top: 0;
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+  rotate: 0.95turn;
 }

@@ -1,8 +1,6 @@
 import './style.css';
 import Player from './player.js';
 
-let newX = 0;
-let newY = 0;
 let startX = 0;
 let startY = 0;
 
@@ -21,15 +19,20 @@ const battleship = document.querySelector('.battleship');
 const destroyer = document.querySelector('.destroyer');
 const submarine = document.querySelector('.submarine');
 const patrolboat = document.querySelector('.patrolboat');
+const hitMessage = document.querySelector('.hitMessage');
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
 let turn = true;
+let Player1;
+let Player2;
+let currentShip;
+let currentDiv;
 
-class Render {
-    createPlayerBoard() {
+export default class Render {
+    static createPlayerBoard() {
         const playerBoard = document.querySelector('.playerBoard');
 
         for (let x = 0; x < 10; x += 1) {
@@ -41,7 +44,7 @@ class Render {
         }
     }
 
-    createEnemyBoard() {
+    static createEnemyBoard() {
         const enemyBoard = document.querySelector('.enemyBoard');
 
         for (let x = 0; x < 10; x += 1) {
@@ -52,21 +55,21 @@ class Render {
 
                 enemyDiv = document.getElementsByClassName(`enemy [${x},${y}]`);
                 enemyDiv[0].addEventListener('click', () => {
-                    if (!turn){
+                    if (!turn) {
                         return;
                     }
                     if (Player2.board.receiveAttack([x, y])) {
-                        Player2.board.receiveAttack([x, y])
+                        Player2.board.receiveAttack([x, y]);
                         this.renderEnemy(Player2);
-                        this.enemyTurn();
                         turn = false;
+                        this.enemyTurn();
                     }
                 })
             }
         }
     }
 
-    renderPlayer(player) {
+    static renderPlayer(player) {
         for (let x = 0; x < 10; x += 1) {
             for (let y = 0; y < 10; y += 1) {
                 if (!(player.board.board[x][y] === '-' || player.board.board[x][y] === 'o')) {
@@ -88,7 +91,7 @@ class Render {
         }
     }
 
-    renderEnemy(player) {
+    static renderEnemy(player) {
         for (let x = 0; x < 10; x += 1) {
             for (let y = 0; y < 10; y += 1) {
                 if (player.board.board[x][y] === '-') {
@@ -106,7 +109,7 @@ class Render {
         }
     }
 
-    clearBoard() {
+    static clearBoard() {
         const playerBoard = document.querySelector('.playerBoard');
 
         while (playerBoard.firstChild) {
@@ -114,7 +117,7 @@ class Render {
         }
     }
 
-    enemyTurn() {
+    static enemyTurn() {
         let x = getRandomInt(10);
         let y = getRandomInt(10);
 
@@ -123,14 +126,14 @@ class Render {
             y = getRandomInt(10);
         }
 
-        Player1.board.receiveAttack([x, y]);
         setTimeout(() => {
+            Player1.board.receiveAttack([x, y]);
             this.renderPlayer(Player1);
             turn = true;
-        }, 1000)   
+        }, 1500)
     }
 
-    randomPlace(player) {
+    static randomPlace(player) {
         let x = [getRandomInt(10), getRandomInt(10)];
 
         while (!player.board.place(player.carrier, x)) {
@@ -159,28 +162,41 @@ class Render {
         player.board.place(player.patrolboat, x);
     }
 
-    placeBoat() {
-        let array = Array.from(currentDiv);
-        let player = Player1[currentShip];
+    static placeBoat() {
+        const array = Array.from(currentDiv);
+        const player = Player1[currentShip];
 
         if (currentShip) {
-            Player1.board.place(player, [parseInt(array[1]), parseInt(array[3])]);
-            render.renderPlayer(Player1);
+            Player1.board.place(player, [parseInt(array[1], 10), parseInt(array[3], 10)]);
+            Render.renderPlayer(Player1);
         }
     }
 
-    setShip(state) {
+    static setShip(state) {
         carrier.style.display = state;
         battleship.style.display = state;
         destroyer.style.display = state;
         submarine.style.display = state;
         patrolboat.style.display = state;
     }
-}
 
-const render = new Render;
-let Player1;
-let Player2;
+    static hitMessage(position) {
+        let ship;
+        if (turn) {
+            ship = document.getElementsByClassName(`enemy [${position}]`)[0].getBoundingClientRect();
+        } else {
+            ship = document.getElementsByClassName(`player [${position}]`)[0].getBoundingClientRect();
+        }
+
+        hitMessage.style.top = `${ship.top}px`;
+        hitMessage.style.left = `${ship.left}px`;
+        hitMessage.style.opacity = '1';
+
+        setTimeout(() => {
+            hitMessage.style.opacity = '0';
+        }, 1000)
+    }
+}
 
 button.addEventListener('click', () => {
     if (!nameInput.value) {
@@ -197,24 +213,24 @@ button.addEventListener('click', () => {
     enemySide.style.display = 'none';
     enemySide.style.opacity = '0';
 
-    render.setShip('grid');
-    render.createPlayerBoard();
+    Render.setShip('grid');
+    Render.createPlayerBoard();
 })
 
 randomButton.addEventListener('click', () => {
     Player1.initialize();
-    render.clearBoard();
-    render.createPlayerBoard();
-    render.randomPlace(Player1);
-    render.renderPlayer(Player1);
-    render.setShip('none');
+    Render.clearBoard();
+    Render.createPlayerBoard();
+    Render.randomPlace(Player1);
+    Render.renderPlayer(Player1);
+    Render.setShip('none');
 })
 
 playButton.addEventListener('click', () => {
     Player2.initialize();
-    render.createEnemyBoard();
-    render.randomPlace(Player2);
-    render.renderEnemy(Player2);
+    Render.createEnemyBoard();
+    Render.randomPlace(Player2);
+    Render.renderEnemy(Player2);
     playerName.textContent = Player1.name.toUpperCase();
     enemyName.textContent = Player2.name.toUpperCase();
 
@@ -223,8 +239,28 @@ playButton.addEventListener('click', () => {
     battleshipArea.style.display = 'none';
 })
 
-let currentShip;
-let currentDiv;
+
+
+function mouseMove(e) {
+    startX = e.clientX;
+    startY = e.clientY;
+
+    document.querySelector(`.${currentShip}`).style.top = `${startY - 10}px`;
+    document.querySelector(`.${currentShip}`).style.left = `${startX - 10}px`;
+}
+
+function mouseUp(e) {
+    document.querySelector(`.${currentShip}`).style.top = `var(--${currentShip}-coord)`;
+    document.querySelector(`.${currentShip}`).style.left = 'var(--left-coord)';
+    document.removeEventListener('mousemove', mouseMove);
+    document.removeEventListener('mouseup', mouseUp);
+    currentDiv = document.elementFromPoint(e.clientX, e.clientY).classList[1];
+    if (currentDiv) {
+        Render.placeBoat();
+        document.querySelector(`.${currentShip}`).style.display = 'none';
+    }
+    currentShip = undefined;
+}
 
 function mouseDown(e) {
     currentShip = e.target.className;
@@ -235,29 +271,6 @@ function mouseDown(e) {
     document.addEventListener('mouseup', mouseUp)
 }
 
-function mouseMove(e) {
-    newX = startX - e.clientX;
-    newY = startY - e.clientY;
-
-    startX = e.clientX;
-    startY = e.clientY;
-
-    document.querySelector(`.${currentShip}`).style.top = (startY - 10) + 'px';
-    document.querySelector(`.${currentShip}`).style.left = (startX - 10) + 'px';
-}
-
-function mouseUp(e) {
-    document.querySelector(`.${currentShip}`).style.top = `var(--${currentShip}-coord)`;
-    document.querySelector(`.${currentShip}`).style.left = 'var(--left-coord)';
-    document.removeEventListener('mousemove', mouseMove);
-    document.removeEventListener('mouseup', mouseUp);
-    currentDiv = document.elementFromPoint(e.clientX, e.clientY).classList[1];
-    if (currentDiv) {
-        render.placeBoat();
-        document.querySelector(`.${currentShip}`).style.display = 'none';
-    }
-    currentShip = undefined;
-}
 
 carrier.addEventListener('mousedown', mouseDown);
 battleship.addEventListener('mousedown', mouseDown);

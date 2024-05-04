@@ -1,5 +1,6 @@
-* {
-  /* border: solid 1px red; */
+@font-face {
+  font-family: "Army Buster";
+  src: url(./Army\ Buster.otf);
 }
 
 :root {
@@ -20,6 +21,8 @@ body {
   align-items: center;
   justify-content: center;
   flex: 1;
+  font-family: "Army Buster", sans-serif;
+  font-weight: 100;
 }
 
 .startScreen {
@@ -39,6 +42,8 @@ body {
 
 .startScreen > h1 {
   margin: 0;
+  font-size: 6em;
+  font-weight: 100;
 }
 
 .startScreen > div {
@@ -76,7 +81,9 @@ body {
 h2 {
   text-align: center;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  font-size: 3em;
+  font-weight: 100;
 }
 
 .playerBoard,
@@ -220,17 +227,16 @@ h2 {
 }
 
 .hit::before,
-.miss::before{
+.miss::before {
   background-image: url(./bomb.png);
   opacity: 0;
-  content: '';
+  content: "";
   width: 33px;
   height: 33px;
   background-size: 100%;
   display: inline-block;
   animation-name: bombMiss;
   animation-duration: 2s;
-  z-index: 1;
 }
 
 .hit {
@@ -248,8 +254,9 @@ h2 {
   50% {
     transform: translateY(0);
   }
+
   100% {
-   opacity: 0;
+    opacity: 0;
   }
 }
 

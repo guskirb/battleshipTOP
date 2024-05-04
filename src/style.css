@@ -8,8 +8,7 @@ ubuntu-sans- {
   font-optical-sizing: auto;
   font-weight: 100;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+  font-variation-settings: "wdth" 100;
 }
 
 :root {
@@ -238,55 +237,45 @@ h2 {
   transition: all 0.25s linear;
 }
 
-.miss {
-  transition: all 0.5s linear;
-  background: url(./miss.png) no-repeat center bottom/cover;
-}
-
-.hit::before,
-.miss::before {
-  background-image: url(./bomb.png);
-  opacity: 0;
+.hit::before{
+  background-image: url(./fire.png);
   content: "";
   width: 33px;
   height: 33px;
   background-size: 100%;
   display: inline-block;
-  animation-name: bombMiss;
+  animation-name: bomb;
   animation-duration: 2s;
+  translate: 2px 2px;
+}
+
+.miss::before {
+  background-image: url(./miss.png);
+  content: "";
+  width: 33px;
+  height: 33px;
+  background-size: 100%;
+  display: inline-block;
+  animation-name: bomb;
+  animation-duration: 2s;
+  translate: 2px 2px;
 }
 
 .hit {
   transition: all 0.5s linear;
-  background: url(./fire.png) no-repeat center bottom/cover;
   background-color: rgb(0, 0, 0);
 }
 
-@keyframes bombMiss {
+@keyframes bomb {
   0% {
     background-image: url("./bomb.png");
     transform: translateY(-100px);
     opacity: 1;
   }
-  50% {
-    transform: translateY(0);
-  }
-
   100% {
-    opacity: 0;
-  }
-}
-
-@keyframes bombHit {
-  0% {
+    transform: translateY(0);
     background-image: url("./bomb.png");
-    transform: translateY(-100px);
-  }
-  50% {
-    transform: translateY(0);
-  }
-  100% {
-    background-image: url("./fire.png");
+    opacity: 1;
   }
 }
 

@@ -141,7 +141,7 @@ export default class Render {
         setTimeout(() => {
             if (hardMode) {
                 if (!(Player1.board.lastHit === undefined)) {
-                    let coord = Player1.board.lastHit;
+                    const coord = Player1.board.lastHit;
 
                     if (!(Player1.board.board[coord[0]][coord[1] + 1] === '-' || Player1.board.board[coord[0]][coord[1] + 1] === 'x')) {
                         Player1.board.receiveAttack([coord[0], coord[1] + 1]);

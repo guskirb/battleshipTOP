@@ -34,6 +34,7 @@ let Player1;
 let Player2;
 let currentShip;
 let currentDiv;
+let hardMode;
 
 export default class Render {
     static createPlayerBoard() {
@@ -128,16 +129,33 @@ export default class Render {
     }
 
     static enemyTurn() {
+
         let x = getRandomInt(10);
         let y = getRandomInt(10);
 
-        while (!Player1.board.receiveAttack([x, y])) {
+        while (Player1.board.board[x][y] === '-' || Player1.board.board[x][y] === 'x') {
             x = getRandomInt(10);
             y = getRandomInt(10);
         }
 
         setTimeout(() => {
-            Player1.board.receiveAttack([x, y]);
+            if (hardMode) {
+                if (!(Player1.board.lastHit === undefined)) {
+                    let coord = Player1.board.lastHit;
+
+                    if (!(Player1.board.board[coord[0]][coord[1] + 1] === '-' || Player1.board.board[coord[0]][coord[1] + 1] === 'x')) {
+                        Player1.board.receiveAttack([coord[0], coord[1] + 1]);
+                    } else if (!(Player1.board.board[coord[0]][coord[1] - 1] === '-' || Player1.board.board[coord[0]][coord[1] - 1] === 'x')) {
+                       Player1.board.receiveAttack([coord[0], coord[1] - 1]);
+                    } else {
+                        Player1.board.receiveAttack([x, y]);
+                    }
+                } else {
+                    Player1.board.receiveAttack([x, y]);
+                }
+            } else {
+                Player1.board.receiveAttack([x, y]);
+            }
             this.renderPlayer(Player1);
             turn = true;
         }, 1500)
@@ -197,23 +215,20 @@ export default class Render {
         let ship;
         if (turn) {
             ship = document.getElementsByClassName(`enemy [${position}]`)[0].getBoundingClientRect();
-            enemyHitMessage.style.top = `${ship.top}px`;
-            enemyHitMessage.style.left = `${ship.left}px`;
+            enemyHitMessage.style.top = `${ship.top + 10}px`;
+            enemyHitMessage.style.left = `${ship.left + 10}px`;
             enemyHitMessage.style.display = 'block';
             enemyHitMessage.style.opacity = '1';
             enemyHitMessage.style.animation = '';
 
         } else {
             ship = document.getElementsByClassName(`player [${position}]`)[0].getBoundingClientRect();
-            playerHitMessage.style.top = `${ship.top}px`;
-            playerHitMessage.style.left = `${ship.left}px`;
+            playerHitMessage.style.top = `${ship.top + 10}px`;
+            playerHitMessage.style.left = `${ship.left + 10}px`;
             playerHitMessage.style.display = 'block';
             playerHitMessage.style.opacity = '1';
             playerHitMessage.style.animation = '';
-
         }
-
-
 
         setTimeout(() => {
             enemyHitMessage.style.opacity = '0';
@@ -221,7 +236,6 @@ export default class Render {
 
             playerHitMessage.style.opacity = '0';
             playerHitMessage.style.display = 'block';
-
 
             setTimeout(() => {
                 enemyHitMessage.style.animation = 'none';
@@ -235,6 +249,12 @@ button.addEventListener('click', () => {
     if (!nameInput.value) {
         errorText.style.display = 'inline';
         return;
+    }
+
+    if (document.getElementById('hard').checked) {
+        hardMode = true;
+    } else {
+        hardMode = undefined;
     }
 
     Player1 = new Player(nameInput.value);

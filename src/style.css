@@ -233,7 +233,6 @@ h2 {
   transition: opacity 0.5s ease-in-out;
   -webkit-animation: scale-up-right 1.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   animation: scale-up-right 1.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-  rotate: 0.95turn;
 }
 
 @-webkit-keyframes scale-up-right {

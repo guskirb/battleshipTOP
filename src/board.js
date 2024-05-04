@@ -3,6 +3,7 @@ import Render from "./index.js";
 const NewBoard = class Board {
     constructor() {
         this.board = [];
+        this.lastHit = undefined;
     }
 
     createBoard() {
@@ -46,10 +47,12 @@ const NewBoard = class Board {
         }
 
         row[position[1]].hit();
+        this.lastHit =  position;
         Render.hitMessage(position);
 
         if (row[position[1]].isSunk()) {
             console.log('Ship sunk!');
+            this.lastHit =  undefined;
         } 
 
         row[position[1]] = 'x';

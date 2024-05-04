@@ -3,6 +3,15 @@
   src: url(./Army\ Buster.otf);
 }
 
+ubuntu-sans- {
+  font-family: "Ubuntu Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
 :root {
   --boxsize: 40px;
   --left-coord: clamp(59.5%, 67.5%);
@@ -60,10 +69,13 @@ body {
 }
 
 .errorText {
+  font-family: "Ubuntu Sans", sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
   color: red;
   display: none;
   position: fixed;
-  top: 54.5%;
+  top: 58.7%;
 }
 
 .cpuDifficulty {
@@ -71,6 +83,12 @@ body {
   flex-flow: column;
   align-items: center;
   align-items: center;
+}
+
+label {
+  font-family: "Ubuntu Sans", sans-serif;
+  font-size: 1.1em;
+  font-weight: 300;
 }
 
 .gameArea {
@@ -82,7 +100,7 @@ h2 {
   text-align: center;
   margin: 0;
   margin-bottom: 5px;
-  font-size: 3em;
+  font-size: 2.5em;
   font-weight: 100;
 }
 
@@ -93,7 +111,6 @@ h2 {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
-  /* border: solid 1px red; */
   gap: 1px;
 }
 

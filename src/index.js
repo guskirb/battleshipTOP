@@ -146,7 +146,11 @@ export default class Render {
                     if (!(Player1.board.board[coord[0]][coord[1] + 1] === '-' || Player1.board.board[coord[0]][coord[1] + 1] === 'x')) {
                         Player1.board.receiveAttack([coord[0], coord[1] + 1]);
                     } else if (!(Player1.board.board[coord[0]][coord[1] - 1] === '-' || Player1.board.board[coord[0]][coord[1] - 1] === 'x')) {
-                       Player1.board.receiveAttack([coord[0], coord[1] - 1]);
+                        Player1.board.receiveAttack([coord[0], coord[1] - 1]);
+                    } else if (!(Player1.board.board[coord[0]][coord[1] - 2] === '-' || Player1.board.board[coord[0]][coord[1] - 2] === 'x')) {
+                        Player1.board.receiveAttack([coord[0], coord[1] - 2]);
+                    } else if (!(Player1.board.board[coord[0]][coord[1] + 2] === '-' || Player1.board.board[coord[0]][coord[1] + 2] === 'x')) {
+                        Player1.board.receiveAttack([coord[0], coord[1] + 2]);
                     } else {
                         Player1.board.receiveAttack([x, y]);
                     }

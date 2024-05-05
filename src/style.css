@@ -83,6 +83,44 @@ body {
   outline: 2px solid #8bf688;
 }
 
+.nameInput > input:focus {
+  outline: 2px solid #8bf688;
+}
+
+.radio {
+  display: inline-flex;
+  width: 80px;
+  justify-content: space-between;
+  align-items: flex-end;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.radioInput {
+  display: none;
+}
+
+.radioButton {
+  width: 0.9em;
+  height: 0.9em;
+  background-color: var(--background-color);
+  border: solid 1px var(--accent-color);
+  padding: 3px;
+}
+
+.radioButton::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: var(--accent-color);
+  opacity: 0;
+}
+
+.radioInput:checked + .radioButton::after {
+  opacity: 1;
+}
+
 .errorText {
   font-family: "Ubuntu Sans", sans-serif;
   font-size: 1.1em;
@@ -356,7 +394,7 @@ h2 {
   display: none;
 }
 
-.resultScreen>h1 {
+.resultScreen > h1 {
   font-size: 6em;
   font-weight: 100;
   margin: 5px;

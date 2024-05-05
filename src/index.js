@@ -143,13 +143,13 @@ export default class Render {
                 if (!(Player1.board.lastHit === undefined)) {
                     const coord = Player1.board.lastHit;
 
-                    if (!(Player1.board.board[coord[0]][coord[1] + 1] === '-' || Player1.board.board[coord[0]][coord[1] + 1] === 'x')) {
+                    if (!(Player1.board.board[coord[0]][coord[1] + 1] === '-' || Player1.board.board[coord[0]][coord[1] + 1] === 'x' || Player1.board.board[coord[0]][coord[1] + 1] === undefined)) {
                         Player1.board.receiveAttack([coord[0], coord[1] + 1]);
-                    } else if (!(Player1.board.board[coord[0]][coord[1] - 1] === '-' || Player1.board.board[coord[0]][coord[1] - 1] === 'x')) {
+                    } else if (!(Player1.board.board[coord[0]][coord[1] - 1] === '-' || Player1.board.board[coord[0]][coord[1] - 1] === 'x' || Player1.board.board[coord[0]][coord[1] - 1] === undefined)) {
                         Player1.board.receiveAttack([coord[0], coord[1] - 1]);
-                    } else if (!(Player1.board.board[coord[0]][coord[1] - 2] === '-' || Player1.board.board[coord[0]][coord[1] - 2] === 'x')) {
+                    } else if (!(Player1.board.board[coord[0]][coord[1] - 2] === '-' || Player1.board.board[coord[0]][coord[1] - 2] === 'x' || Player1.board.board[coord[0]][coord[1] - 2] === undefined)) {
                         Player1.board.receiveAttack([coord[0], coord[1] - 2]);
-                    } else if (!(Player1.board.board[coord[0]][coord[1] + 2] === '-' || Player1.board.board[coord[0]][coord[1] + 2] === 'x')) {
+                    } else if (!(Player1.board.board[coord[0]][coord[1] + 2] === '-' || Player1.board.board[coord[0]][coord[1] + 2] === 'x' || Player1.board.board[coord[0]][coord[1] + 2] === undefined)) {
                         Player1.board.receiveAttack([coord[0], coord[1] + 2]);
                     } else {
                         Player1.board.receiveAttack([x, y]);
@@ -277,6 +277,7 @@ button.addEventListener('click', () => {
     Render.clearBoard();
     Render.setShip('grid');
     Render.createPlayerBoard();
+    errorText.style.display = 'none';
 })
 
 randomButton.addEventListener('click', () => {

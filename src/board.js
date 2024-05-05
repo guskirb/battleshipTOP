@@ -45,13 +45,12 @@ const NewBoard = class Board {
             row[position[1]] = '-';
             return true;
         }
-
+        console.log(row[position[1]]);
         row[position[1]].hit();
         this.lastHit =  position;
         Render.hitMessage(position);
 
         if (row[position[1]].isSunk()) {
-            console.log('Ship sunk!');
             this.lastHit =  undefined;
         } 
 

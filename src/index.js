@@ -42,7 +42,7 @@ export default class Render {
 
         for (let x = 0; x < 10; x += 1) {
             for (let y = 0; y < 10; y += 1) {
-                let playerDiv = document.createElement('div');
+                const playerDiv = document.createElement('div');
 
                 playerBoard.appendChild(playerDiv).classList.add('player', `[${x},${y}]`);
             }

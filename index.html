@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Battleships
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet">
+<script defer src="bundleb9cf9e579aecd06bac2d.js"></script></head>
+
+<body>
+    <div class="startScreen">
+        <h1>Battleships</h1>
+        <div>
+            <div class="nameInput">
+                <label for="name" class="subHeader">NAME</label>
+                <input type="text" id="name">
+                <span class="errorText">ENTER A NAME</span>
+            </div>
+            <div class="cpuDifficulty">
+                <label class="subHeader">CPU DIFFICULTY</label>
+                <label for="easy" class="radio">EASY
+                    <input type="radio" name="Difficulty" id="easy" checked class="radioInput">
+                    <div class="radioButton"></div>
+                </label>
+                <label for="hard" class="radio">HARD
+                    <input type="radio" name="Difficulty" id="hard" class="radioInput">
+                    <div class="radioButton"></div>
+                </label>
+            </div>
+        </div>
+        <button class="submit">SUBMIT</button>
+    </div>
+    <div class="gameArea">
+        <div class="playerSide">
+            <div>
+                <h2 class="playerName"></h2>
+                <div class="playerBoard"></div>
+            </div>
+            <div class="battleships">
+                <div class="carrier"></div>
+                <div class="battleship"></div>
+                <div class="destroyer"></div>
+                <div class="submarine"></div>
+                <div class="patrolboat"></div>
+                <div class="buttons">
+                    <button class="randomButton">RANDOMISE</button>
+                    <button class="playButton">PLAY</button>
+                </div>
+            </div>
+        </div>
+        <div class="enemy">
+            <h2 class="enemyName"></h2>
+            <div class="enemyBoard"></div>
+        </div>
+    </div>
+    <div class="resultScreen">
+        <h1 class="result">YOU WIN!</h1>
+        <button class="replayButton">Replay</button>
+    </div>
+    <div class="playerHitMessage">HIT!</div>
+    <div class="enemyHitMessage">HIT!</div>
+</body>
+
+</html>
